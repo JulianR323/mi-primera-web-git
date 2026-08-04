@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AulaConecta - Lista de Actividades</title>
+  <!-- Iconos Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Fuente Google: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="listaActividades.css">
+</head>
+<body>
+
+  <!-- Contenedor Principal (Simulación Móvil / App UI) -->
+  <div class="app-container">
+    
+    <!-- Encabezado / Navbar -->
+    <header class="app-header">
+      <div class="header-top">
+        <!-- Botón de Regreso (Corrección de navegación) -->
+        <button class="btn-icon btn-back" id="btnBack" title="Volver al Menú Principal">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="header-title">
+          <h1>Lista de Actividades</h1>
+          <span class="subtitle">Ficha ADSO 3409609</span>
+        </div>
+        <button class="btn-icon btn-avatar" title="Perfil de Aprendiz">
+          <i class="fa-solid fa-user-graduate"></i>
+        </button>
+      </div>
+
+      <!-- Barra de Búsqueda por palabra clave o competencia (H20) -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Buscar por palabra clave o competencia...">
+        <button class="btn-clear-search" id="btnClearSearch" hidden>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sección de Filtros y Ordenamiento (H11, H21, H12, H10) -->
+    <section class="filters-section">
+      <div class="filters-scroll">
+        <!-- Filtro por Competencia (H11) -->
+        <div class="filter-group">
+          <label for="filterCompetence"><i class="fa-solid fa-book-bookmark"></i> Competencia:</label>
+          <select id="filterCompetence">
+            <option value="all">Todas las competencias</option>
+            <option value="Programación">Técnico en Programación</option>
+            <option value="Requisitos">Análisis de Requisitos</option>
+            <option value="Bases de Datos">Bases de Datos</option>
+            <option value="Inglés">Inglés Técnico</option>
+          </select>
+        </div>
+
+        <!-- Filtro por Estado de Entrega (H21) -->
+        <div class="filter-group">
+          <label for="filterStatus"><i class="fa-solid fa-list-check"></i> Estado:</label>
+          <select id="filterStatus">
+            <option value="all">Todos los estados</option>
+            <option value="pendiente">Pendiente / Por Entregar</option>
+            <option value="entregada">Entregada</option>
+            <option value="retraso">En Retraso</option>
+          </select>
+        </div>
+
+        <!-- Filtro por Nivel de Complejidad (H12) -->
+        <div class="filter-group">
+          <label for="filterComplexity"><i class="fa-solid fa-layer-group"></i> Dificultad:</label>
+          <select id="filterComplexity">
+            <option value="all">Todas</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Fácil">Fácil</option>
+          </select>
+        </div>
+
+        <!-- Ordenamiento por Fecha o Complejidad (H10) -->
+        <div class="filter-group">
+          <label for="sortBy"><i class="fa-solid fa-arrow-down-short-wide"></i> Ordenar por:</label>
+          <select id="sortBy">
+            <option value="dueDateAsc">Fecha límite (Más próxima)</option>
+            <option value="dueDateDesc">Fecha límite (Más lejana)</option>
+            <option value="complexityDesc">Mayor dificultad primero</option>
+            <option value="complexityAsc">Menor dificultad primero</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumen de Estadísticas Rápidas -->
+    <div class="stats-bar">
+      <span class="stat-pill"><i class="fa-solid fa-clock"></i> Pendientes: <strong id="countPending">0</strong></span>
+      <span class="stat-pill success"><i class="fa-solid fa-circle-check"></i> Entregadas: <strong id="countCompleted">0</strong></span>
+      <span class="stat-pill warning"><i class="fa-solid fa-triangle-exclamation"></i> En Retraso: <strong id="countLate">0</strong></span>
+    </div>
+
+    <!-- Lista de Actividades (H10, H15) -->
+    <main class="activities-main">
+      
+      <!-- Sección: Actividades Fijadas (H15) -->
+      <section class="activity-group" id="pinnedSection">
+        <h2 class="group-title"><i class="fa-solid fa-thumbtack text-pinned"></i> Fijadas en la parte superior</h2>
+        <div class="activities-list" id="pinnedContainer">
+          <!-- Renderizado dinámico desde JS -->
+        </div>
+      </section>
+
+      <!-- Sección: Todas las Actividades -->
+      <section class="activity-group">
+        <h2 class="group-title"><i class="fa-solid fa-list-ul"></i> Todas las Actividades</h2>
+        <div class="activities-list" id="activitiesContainer">
+          <!-- Renderizado dinámico desde JS -->
+        </div>
+      </section>
+
+      <!-- Mensaje para cuando no hay resultados -->
+      <div class="empty-state hidden" id="emptyState">
+        <i class="fa-solid fa-folder-open empty-icon"></i>
+        <h3>No se encontraron actividades</h3>
+        <p>Intenta cambiar los términos de búsqueda o restablecer los filtros.</p>
+        <button class="btn-reset-filters" id="btnResetFilters">Restablecer filtros</button>
+      </div>
+    </main>
+
+    <!-- Modal para Anotaciones Personales del Aprendiz (H13) -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+      <div class="modal-card">
+        <button class="btn-modal-close" id="btnCloseModal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="modal-header">
+          <span class="badge-competence" id="modalCompetence">Competencia</span>
+          <h2 id="modalTitle">Título de la Actividad</h2>
+          <div class="modal-meta">
+            <span class="meta-item"><i class="fa-regular fa-calendar"></i> Vence: <strong id="modalDueDate">--/--/----</strong></span>
+            <span class="badge-complexity" id="modalComplexity">Dificultad</span>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <p class="activity-desc" id="modalDescription">Descripción detallada de la guía o trabajo...</p>
+          
+          <!-- Anotaciones Personales (H13) -->
+          <div class="notes-box">
+            <label for="personalNotes">
+              <i class="fa-solid fa-pen-to-square"></i> Mis Anotaciones Personales:
+            </label>
+            <textarea id="personalNotes" rows="4" placeholder="Escribe aquí recordatorios, observaciones o apuntes clave para esta tarea..."></textarea>
+            <div class="notes-footer">
+              <span class="notes-status" id="notesStatusMsg"></span>
+              <button class="btn-save-notes" id="btnSaveNotes">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar Anotación
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="listaActividades.js"></script>
+</body>
+</html>

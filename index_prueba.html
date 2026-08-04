@@ -1,0 +1,344 @@
+<!-- <!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primera web con Git</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="contenedor">
+        <section class="tarjeta">
+            <p class="etiqueta">Ficha 3538620</p>
+            <h1>Mi primera web versionada</h1>
+            <p id="mensaje">Cada mejora quedará registrada en GitHub.</p>
+            <button id="boton">Probar JavaScript</button>
+        </section>
+        <div></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AulaConecta - SENA</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Fonts: Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- 1. PANTALLA: INICIO DE SESIÓN -->
+    <section id="screen-login" class="screen active">
+      <div class="card login-card">
+
+        <div class="brand">
+          <h2>SENA</h2>
+          <p class="subtitle">AulaConecta</p>
+        </div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Correo SENA</label>
+            <input type="email" id="email" placeholder="" value="aprendiz@sena.edu.co" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" value="12345678" required>
+          </div>
+
+          <div class="form-row">
+            <label class="checkbox-label">
+              <input type="checkbox" checked> Mantener sesión iniciada
+            </label>
+          </div>
+
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+
+          <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- HEADER DE NAVEGACIÓN (Pantallas principales) -->
+    <header class="app-header hidden" id="app-header">
+      <div class="user-info">
+        <div class="avatar">👨‍🎓</div>
+        <div>
+          <h3 id="user-name">Jonathan Felipe</h3>
+          <span>Cruz Saenz</span>
+        </div>
+      </div>
+      <button class="btn-menu" id="btn-menu-toggle">☰ Menú</button>
+    </header>
+
+    <!-- MENÚ LATERAL INTERACTIVO -->
+    <nav class="side-menu hidden" id="side-menu">
+      <button class="close-menu" id="close-menu">&times;</button>
+      <ul>
+        <li><a href="#" class="nav-link" data-target="screen-dashboard">Dashboard</a></li>
+        <li><a href="#" class="nav-link" data-target="screen-activities">Lista de Actividades</a></li>
+        <li><a href="#" class="nav-link" data-target="screen-progress">Progreso y Calendario</a></li>
+        <li><a href="#" class="nav-link" data-target="screen-announcements">Comunicados</a></li>
+        <li><a href="#" id="btn-logout" class="logout-link">Cerrar Sesión</a></li>
+      </ul>
+    </nav>
+
+    <!-- 2. PANTALLA: PÁGINA PRINCIPAL (DASHBOARD) -->
+    <section id="screen-dashboard" class="screen hidden">
+      <!-- Módulo Horario -->
+      <div class="card card-orange">
+        <div class="card-header-flex">
+          <h3>HORARIO DE CLASES</h3>
+          <span class="icon-calendar">📅</span>
+        </div>
+        <p class="card-sub">Trimestre vigente: [Trimestre 3]</p>
+        <ul class="class-list">
+          <li>Clases de hoy 1: Análisis de Requisitos</li>
+          <li>Clases de hoy 2: HTML & CSS Básico</li>
+          <li>Clases de hoy 3: Algoritmos Python</li>
+          <li>Clases de hoy 4: Inglés Técnico</li>
+        </ul>
+        <button class="btn btn-secondary full-width">VER HORARIO COMPLETO</button>
+      </div>
+
+      <!-- Alertas de Tareas -->
+      <div class="card card-orange-light">
+        <div class="card-header-flex">
+          <h3>ALERTAS DE TAREAS</h3>
+          <span class="badge badge-warning">PRÓXIMAS</span>
+        </div>
+        <ul class="alert-list">
+          <li>⚠️ Tareas de tarea A - Vence mañana</li>
+          <li>⚠️ Tareas de tarea B - Faltan 2 días</li>
+          <li>⚠️ Tareas de tarea C - Faltan 4 días</li>
+        </ul>
+      </div>
+
+      <!-- Comunicados Recientes -->
+      <div class="card card-white">
+        <h3>COMUNICADOS RECIENTES</h3>
+        <ul class="announcement-preview">
+          <li>• Título e reciente RAP 1</li>
+          <li>• Comunicados RAP 2</li>
+          <li>• Comunicados Recientes - Título...</li>
+        </ul>
+      </div>
+
+      <!-- Acceso Directo Tiles -->
+      <div class="tiles-grid">
+        <button class="tile tile-blue" onclick="navigateTo('screen-activities')">Competencia A</button>
+        <button class="tile tile-orange" onclick="navigateTo('screen-activities')">Competencia B</button>
+        <button class="tile tile-coral" onclick="navigateTo('screen-progress')">RAP 1</button>
+        <button class="tile tile-cyan" onclick="navigateTo('screen-progress')">RAP 2</button>
+      </div>
+    </section>
+
+    <!-- 3. PANTALLA: LISTA DE ACTIVIDADES -->
+    <section id="screen-activities" class="screen hidden">
+      <div class="screen-bar">
+        <button class="btn-back" onclick="navigateTo('screen-dashboard')">←</button>
+        <h2>Lista de Actividades</h2>
+      </div>
+
+      <div class="search-box">
+        <input type="text" placeholder="Buscar por palabra clave">
+        <button class="btn-search">🔍</button>
+      </div>
+
+      <div class="filter-group">
+        <button class="btn-filter green">Filtro por competencia</button>
+        <button class="btn-filter orange">Filtro por estado</button>
+      </div>
+
+      <div class="table-container">
+        <table class="activity-table">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Vencimiento</th>
+              <th>Dificultad</th>
+              <th>Fijar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onclick="navigateTo('screen-activity-detail')">
+              <td><strong>Título en Programación</strong></td>
+              <td>23 de límite</td>
+              <td><span class="tag green">Fácil</span></td>
+              <td>✔</td>
+            </tr>
+            <tr onclick="navigateTo('screen-activity-detail')">
+              <td><strong>Título en Programación</strong></td>
+              <td>23 de límite</td>
+              <td><span class="tag orange">Media</span></td>
+              <td>✔</td>
+            </tr>
+            <tr onclick="navigateTo('screen-activity-detail')">
+              <td><strong>Técnico en Programación</strong></td>
+              <td>21 de límite</td>
+              <td><span class="tag red">Alta</span></td>
+              <td>✔</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. PANTALLA: DETALLE DE UNA ACTIVIDAD -->
+    <section id="screen-activity-detail" class="screen hidden">
+      <div class="screen-bar">
+        <button class="btn-back" onclick="navigateTo('screen-activities')">←</button>
+        <h2>Detalle de una Actividad</h2>
+      </div>
+
+      <div class="card card-orange">
+        <h3>Técnico en Programación - [Título]</h3>
+        <p><strong>Descripción detallada:</strong> Realizar el prototipo responsivo utilizando componentes HTML, CSS y JS.</p>
+        <p><strong>Fecha límite:</strong> 23 de Agosto</p>
+      </div>
+
+      <div class="action-buttons-stack">
+        <button class="btn btn-action green">💾 Descargar Material de Apoyo</button>
+        <button class="btn btn-action green">📝 Guardar Anotación Personal</button>
+        <button class="btn btn-action green">📤 Adjuntar / Subir Entrega</button>
+      </div>
+
+      <div class="card card-gray">
+        <h4>Material de Apoyo</h4>
+        <p class="text-sm">Documento_Guia_ADSO.pdf</p>
+      </div>
+
+      <div class="card card-gray">
+        <h4>Mis Anotaciones Personales</h4>
+        <textarea placeholder="Escribe tus notas privadas aquí..."></textarea>
+      </div>
+
+      <div class="status-box">
+        <strong>Estado del reenvío:</strong> <span class="text-green">Permitido</span>
+      </div>
+    </section>
+
+    <!-- 5. PANTALLA: CONSULTA DEL PROGRESO Y CALENDARIO -->
+    <section id="screen-progress" class="screen hidden">
+      <div class="screen-bar">
+        <button class="btn-back" onclick="navigateTo('screen-dashboard')">←</button>
+        <h2>Consulta del Progreso</h2>
+      </div>
+
+      <!-- Anillos / Métricas de entregas -->
+      <div class="metrics-grid">
+        <div class="metric-circle green-ring">
+          <span class="num">25</span>
+          <span class="label">Entregadas</span>
+        </div>
+        <div class="metric-circle orange-ring">
+          <span class="num">27</span>
+          <span class="label">En Retraso</span>
+        </div>
+        <div class="metric-circle red-ring">
+          <span class="num">10</span>
+          <span class="label">No Entregadas</span>
+        </div>
+      </div>
+
+      <!-- Módulo Calendario RAPs -->
+      <div class="card card-orange margin-top">
+        <h3>CALENDARIO DE RAP'S</h3>
+        <p class="text-sm">Clases de días restantes: Trimestre 3</p>
+        <p class="text-xs">Descripción detallada correspondiente al trimestre, sucediendo emisiones de RAPs.</p>
+      </div>
+
+      <!-- Calendario Grid UI -->
+      <div class="calendar-card">
+        <div class="calendar-grid">
+          <div class="day-head">L</div><div class="day-head">M</div><div class="day-head">M</div><div class="day-head">J</div><div class="day-head">V</div><div class="day-head">S</div><div class="day-head">D</div>
+          <div class="day">1</div><div class="day">2</div><div class="day dot green">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day dot green">7</div>
+          <div class="day dot green">8</div><div class="day">9</div><div class="day dot green">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day dot green">14</div>
+        </div>
+        <div class="search-box margin-top-sm">
+          <input type="text" placeholder="Buscar RAP o descripción...">
+          <button class="btn-search">🔍</button>
+        </div>
+      </div>
+
+      <div class="button-grid">
+        <button class="btn btn-filter green">[ Entregadas ]</button>
+        <button class="btn btn-filter orange">[ En Retraso ]</button>
+        <button class="btn btn-filter green">[ Filtrar Estado ]</button>
+        <button class="btn btn-filter red">[ Filtrar por Ficha ]</button>
+      </div>
+    </section>
+
+    <!-- 6. PANTALLA: COMUNICADOS -->
+    <section id="screen-announcements" class="screen hidden">
+      <div class="screen-bar">
+        <button class="btn-back" onclick="navigateTo('screen-dashboard')">←</button>
+        <h2>Comunicados</h2>
+      </div>
+
+      <div class="search-box">
+        <input type="text" placeholder="Buscar por instructor o competencia...">
+        <button class="btn-search orange-bg">🔍</button>
+      </div>
+
+      <div class="filter-stack">
+        <button class="btn-filter orange full-width">[ Ordenar por: Más nuevos / Más viejos ]</button>
+        <button class="btn-filter orange full-width margin-top-xs">[ Filtrar por: Más nuevos / Más viejos ]</button>
+      </div>
+
+      <!-- Muro / Feed de Comunicados -->
+      <div class="announcements-feed margin-top">
+        
+        <div class="card announcement-card">
+          <div class="author-info">
+            <div class="avatar-small">👨‍🏫</div>
+            <div>
+              <strong>Instructor Greeitaro</strong>
+              <span class="date">25 de 2023</span>
+            </div>
+          </div>
+          <h4>Técnico en Programación - [Título]</h4>
+          <p class="text-sm">Descripción detallada del comunicado con un conocimiento amplio sobre la actividad asignada...</p>
+        </div>
+
+        <div class="card announcement-card">
+          <div class="author-info">
+            <div class="avatar-small">👩‍🏫</div>
+            <div>
+              <strong>Instructor Sentina</strong>
+              <span class="date">12 de 2023</span>
+            </div>
+          </div>
+          <h4>Título: en claserte</h4>
+          <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Se informa sobre los nuevos requerimientos.</p>
+        </div>
+
+        <div class="card announcement-card">
+          <div class="author-info">
+            <div class="avatar-small">👩‍🏫</div>
+            <div>
+              <strong>Instructor Sentina</strong>
+              <span class="date">17 de 2023</span>
+            </div>
+          </div>
+          <h4>Título - RAP 2</h4>
+          <p class="text-sm">Aviso sobre la evaluación de la guía técnica correspondiente a la sesión anterior.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

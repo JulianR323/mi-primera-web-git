@@ -13,12 +13,18 @@ Detalle de una Actividad: Subida de entregas, material de apoyo, anotaciones per
 Consulta del Progreso y Calendario de RAPs: Indicadores de cumplimiento académico y guiaas diaria de clases por RAP.
 Comunicados: novedades publicadas por instructores.
 
+
 Equipo de Trabajo (ADSO 3409609)
 *Omar Andrés Mayorga Cruz-usuario:ElOmar2702
+
 *Julián Felipe Riaño Guerrero-usuario:JulianR323
+
 *Tania Fernanda Trujillo Neira-usuario:tanisfernanda
+
 *Cristian Fabian Tunaroza Rodriguez-TunaTuna2552
+
 *Angel David Gomez Quiroga-Angel307-703
+
 
 Ruta Tecnológica Prevista Estructura y Diseño UI: HTML & CSS Interactividad y Lógica: JavaScript Librería Frontend:React Control de Versiones: GitHub
 

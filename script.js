@@ -6,6 +6,7 @@ boton.addEventListener("click", () => {
     boton.textContent = "Prueba completada";
 });*/
 
+//Prueba de diferentes mensajes
 const boton = document.querySelector("#boton");
 const mensaje = document.querySelector("#mensaje");
 

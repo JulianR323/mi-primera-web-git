@@ -1,347 +1,216 @@
-/* ==========================================================================
-   AulaConecta - Lista de Actividades (SENA ADSO)
-   Lógica JavaScript Interactiva
-   ========================================================================== */
-
-// 1. Datos iniciales de ejemplo (Actividades del programa ADSO)
 const initialActivities = [
-  {
-    id: 1,
-    title: "Evidencia GA3-220501093-AA1: Modelo relacional y sentencias SQL",
-    competence: "Bases de Datos",
-    dueDate: "2026-08-10",
-    complexity: "Alta",
-    status: "pendiente",
-    pinned: true,
-    description: "Diseñar el diagrama entidad-relación y construir los scripts DDL/DML para el sistema AulaConecta siguiendo la normalización 3FN.",
-    notes: "Revisar claves foráneas y la restricción ON DELETE CASCADE antes de subir la entrega."
-  },
-  {
-    id: 2,
-    title: "Evidencia GA4-220501095-AA2: Prototipado UX/UI en Figma",
-    competence: "Programación",
-    dueDate: "2026-08-08",
-    complexity: "Media",
-    status: "pendiente",
-    pinned: true,
-    description: "Crear el wireframe de alta fidelidad para las 5 pantallas principales del sistema móvil AulaConecta.",
-    notes: "Asegurar que los colores verde SENA (#39A900) y azul (#00324D) estén aplicados."
-  },
-  {
-    id: 3,
-    title: "Evidencia GA2-220501092-AA1: Documento de historias de usuario",
-    competence: "Requisitos",
-    dueDate: "2026-08-02",
-    complexity: "Fácil",
-    status: "entregada",
-    pinned: false,
-    description: "Redactar 30 historias de usuario con la estructura 'Como [rol], quiero [funcionalidad] para [beneficio]'.",
-    notes: "Aprobada por el instructor con 100/100."
-  },
-  {
-    id: 4,
-    title: "Evidencia GA5-220501096-AA1: API RESTful en Node.js / Express",
-    competence: "Programación",
-    dueDate: "2026-08-04",
-    complexity: "Alta",
-    status: "retraso",
-    pinned: false,
-    description: "Implementación del CRUD de usuarios, comunicados y consulta de RAPs para la plataforma.",
-    notes: "Falta corregir los middleware de autenticación con JWT."
-  },
-  {
-    id: 5,
-    title: "Evidencia GA1-240201501-AA3: Technical Reading Comprehension Report",
-    competence: "Inglés",
-    dueDate: "2026-08-15",
-    complexity: "Fácil",
-    status: "pendiente",
-    pinned: false,
-    description: "Elaborar un resumen de lectura técnica sobre metodologías ágiles Scrum en formato PDF en inglés.",
-    notes: ""
-  },
-  {
-    id: 6,
-    title: "Evidencia GA4-220501095-AA3: Desarrollo Front-End HTML5, CSS3 y JS",
-    competence: "Programación",
-    dueDate: "2026-08-12",
-    complexity: "Media",
-    status: "pendiente",
-    pinned: false,
-    description: "Crear la interfaz responsiva de la pantalla Lista de Actividades con soporte para filtros dinámicos.",
-    notes: "Fijar esta tarea para tener acceso rápido diario."
-  }
+  { id: 1, ficha: "3409609", title: "Evidencia GA3-220501093-AA1: Modelo Relacional y Sentencias SQL DDL/DML", competence: "Bases de Datos y Almacenamiento", dueDate: "2026-08-14", complexity: "Alta", status: "pendiente", grade: "sin_calificar", pinned: true, description: "Diseñar el modelo ER y construir scripts SQL.", notes: "Revisar FKs.", supportMaterial: "Guia_GA3_BD.pdf", instructorObservation: "Incluir índices.", allowResubmit: true },
+  { id: 2, ficha: "3409609", title: "Evidencia GA4-220501095-AA2: Prototipado UX/UI Móvil en Figma", competence: "Diseño y Construcción de Software", dueDate: "2026-08-10", complexity: "Media", status: "pendiente", grade: "sin_calificar", pinned: true, description: "Crear wireframes de alta fidelidad.", notes: "Usar verde SENA.", supportMaterial: "Manual_Identidad.pdf", instructorObservation: "", allowResubmit: true },
+  { id: 3, ficha: "3409609", title: "Evidencia GA2-220501092-AA1: Documentación de Historias de Usuario (HU)", competence: "Análisis y Requisitos de Software", dueDate: "2026-08-05", complexity: "Fácil", status: "entregada", grade: "aprobado", pinned: false, description: "Redactar 30 historias de usuario.", notes: "Entregada a tiempo.", supportMaterial: "Plantilla_HU.pdf", instructorObservation: "Excelente redacción.", allowResubmit: true, submissionFile: "HU_Jonathan.pdf", submissionDate: "04/08/2026" },
+  { id: 4, ficha: "3409609", title: "Evidencia GA5-220501096-AA1: API RESTful en Node.js, Express y JWT", competence: "Diseño y Construcción de Software", dueDate: "2026-08-07", complexity: "Alta", status: "retraso", grade: "no_aprobado", pinned: false, description: "Backend CRUD con Node.js.", notes: "Corregir JWT.", supportMaterial: "Backend_Doc.pdf", instructorObservation: "No aprobado. Falta autenticación. Puedes resubir.", allowResubmit: true, submissionFile: "API_Borrador.zip", submissionDate: "06/08/2026" },
+  { id: 5, ficha: "3409610", title: "Evidencia GA6-220501097-AA1: Plan de Pruebas Unitarias con Jest", competence: "Pruebas y Calidad de Software", dueDate: "2026-08-18", complexity: "Media", status: "pendiente", grade: "sin_calificar", pinned: false, description: "Casos de prueba para Ficha 3409610.", notes: "", supportMaterial: "Pruebas_Doc.pdf", instructorObservation: "", allowResubmit: true },
+  { id: 6, ficha: "3409611", title: "Evidencia GA1-240201501-AA3: Technical Documentation Reading Report", competence: "Inglés Técnico y Comunicativo", dueDate: "2026-08-20", complexity: "Fácil", status: "pendiente", grade: "sin_calificar", pinned: false, description: "Informe técnico en inglés Scrum.", notes: "", supportMaterial: "Scrum_Guide.pdf", instructorObservation: "", allowResubmit: true }
 ];
 
-// Estado global persisitido en LocalStorage
 let activities = JSON.parse(localStorage.getItem('aulaConecta_activities')) || initialActivities;
-let activeModalActivityId = null;
+const currentUser = JSON.parse(localStorage.getItem('aulaConecta_user')) || { email: 'jonathan_felipe@soy.sena.edu.co', role: 'aprendiz', name: 'Jonathan Felipe Cruz Saenz', subtitle: 'Aprendiz ADSO • Ficha 3409609', ficha: '3409609' };
+const currentRole = currentUser.role;
+let activeModalActivityId = null, selectedInstructorGrade = 'sin_calificar';
 
-// Elementos DOM
-const searchInput = document.getElementById('searchInput');
-const btnClearSearch = document.getElementById('btnClearSearch');
-const filterCompetence = document.getElementById('filterCompetence');
-const filterStatus = document.getElementById('filterStatus');
-const filterComplexity = document.getElementById('filterComplexity');
-const sortBy = document.getElementById('sortBy');
+const $ = (id) => document.getElementById(id);
+const formatDate = (s) => s ? s.split('-').reverse().join('/') : '--/--/----';
+const saveState = () => localStorage.setItem('aulaConecta_activities', JSON.stringify(activities));
 
-const pinnedContainer = document.getElementById('pinnedContainer');
-const activitiesContainer = document.getElementById('activitiesContainer');
-const pinnedSection = document.getElementById('pinnedSection');
-const emptyState = document.getElementById('emptyState');
-const btnResetFilters = document.getElementById('btnResetFilters');
+function initSession() {
+  $('userNameDisplay').textContent = currentUser.name;
+  $('userRoleSubtitle').textContent = currentUser.subtitle;
+  $('userEmailDisplay').textContent = currentUser.email;
+  if ($('sidebarFichaTag')) $('sidebarFichaTag').innerHTML = `<i class="fa-solid fa-id-card"></i> Ficha: ${currentUser.ficha || '3409609'}`;
 
-const countPending = document.getElementById('countPending');
-const countCompleted = document.getElementById('countCompleted');
-const countLate = document.getElementById('countLate');
+  const isInst = currentRole === 'instructor';
+  $('headerRoleBadge').innerHTML = `<i class="fa-solid ${isInst ? 'fa-chalkboard-user' : 'fa-user-graduate'}"></i> ${isInst ? 'Instructor' : 'Aprendiz'} ${currentUser.name}`;
+  if (isInst) $('headerRoleBadge').classList.add('instructor-mode');
 
-// Modal Elements
-const modalOverlay = document.getElementById('modalOverlay');
-const btnCloseModal = document.getElementById('btnCloseModal');
-const modalTitle = document.getElementById('modalTitle');
-const modalCompetence = document.getElementById('modalCompetence');
-const modalDueDate = document.getElementById('modalDueDate');
-const modalComplexity = document.getElementById('modalComplexity');
-const modalDescription = document.getElementById('modalDescription');
-const personalNotes = document.getElementById('personalNotes');
-const btnSaveNotes = document.getElementById('btnSaveNotes');
-const notesStatusMsg = document.getElementById('notesStatusMsg');
-const btnBack = document.getElementById('btnBack');
+  $('instructorSidebarPanel').classList.toggle('hidden', !isInst);
+  $('btnTopCreateActivity').classList.toggle('hidden', !isInst);
+  if ($('headerFichaSubtitle')) $('headerFichaSubtitle').textContent = isInst ? 'Gestión por Fichas • Instructor SENA' : `Actividades • Ficha ${currentUser.ficha || '3409609'}`;
 
-// Persistir cambios en LocalStorage
-function saveState() {
-  localStorage.setItem('aulaConecta_activities', JSON.stringify(activities));
+  render();
 }
 
-// Formatear Fecha (YYYY-MM-DD -> DD/MM/YYYY)
-function formatDate(dateString) {
-  const [year, month, day] = dateString.split('-');
-  return `${day}/${month}/${year}`;
-}
+window.togglePin = (id, e) => { e?.stopPropagation(); activities = activities.map(a => a.id === id ? { ...a, pinned: !a.pinned } : a); saveState(); render(); };
+window.changeComplexity = (id, val, e) => { e?.stopPropagation(); activities = activities.map(a => a.id === id ? { ...a, complexity: val } : a); saveState(); render(); };
 
-// Comprobar si falta poco tiempo para la entrega
-function isUrgent(dueDateStr, status) {
-  if (status === 'entregada') return false;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(dueDateStr);
-  const diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
-  return diffDays <= 2;
-}
-
-// Construir HTML de la Tarjeta de Actividad
-function createActivityCard(act) {
-  const isPinned = act.pinned;
-  const urgentClass = isUrgent(act.dueDate, act.status) ? 'urgent' : '';
-  const hasNotesClass = act.notes && act.notes.trim() !== '' ? 'has-notes' : '';
-
-  let statusLabel = 'Pendiente';
-  let statusIcon = 'fa-circle';
-  if (act.status === 'entregada') {
-    statusLabel = 'Entregada';
-    statusIcon = 'fa-circle-check';
-  } else if (act.status === 'retraso') {
-    statusLabel = 'En Retraso';
-    statusIcon = 'fa-circle-exclamation';
-  }
+function createCard(act) {
+  const urgent = (act.status !== 'entregada' && Math.ceil((new Date(act.dueDate) - new Date().setHours(0,0,0,0)) / 86400000) <= 2) ? 'urgent' : '';
+  const gradeTag = act.grade === 'aprobado' ? `<span class="badge-grade aprobado"><i class="fa-solid fa-check-double"></i> Aprobado (A)</span>` : act.grade === 'no_aprobado' ? `<span class="badge-grade no-aprobado"><i class="fa-solid fa-xmark"></i> No Aprobado (D)</span>` : '';
 
   return `
-    <article class="activity-card ${isPinned ? 'pinned' : ''}" data-id="${act.id}">
+    <article class="activity-card ${act.pinned ? 'pinned' : ''}" data-id="${act.id}">
       <div class="card-top">
         <div class="badges-row">
+          <span class="badge-ficha">Ficha ${act.ficha || '3409609'}</span>
           <span class="badge-competence">${act.competence}</span>
-          <span class="badge-complexity ${act.complexity}">${act.complexity}</span>
+          ${gradeTag}
+          <select class="badge-complexity-select ${act.complexity}" onchange="changeComplexity(${act.id}, this.value, event)">
+            <option value="Fácil" ${act.complexity === 'Fácil' ? 'selected' : ''}>Fácil</option>
+            <option value="Media" ${act.complexity === 'Media' ? 'selected' : ''}>Media</option>
+            <option value="Alta" ${act.complexity === 'Alta' ? 'selected' : ''}>Alta</option>
+          </select>
         </div>
-        <button class="btn-pin ${isPinned ? 'is-pinned' : ''}" onclick="togglePin(${act.id}, event)" title="${isPinned ? 'Desfijar' : 'Fijar arriba (H15)'}">
-          <i class="fa-${isPinned ? 'solid' : 'regular'} fa-thumbtack"></i>
-        </button>
+        <button class="btn-pin ${act.pinned ? 'is-pinned' : ''}" onclick="togglePin(${act.id}, event)"><i class="fa-${act.pinned ? 'solid' : 'regular'} fa-thumbtack"></i></button>
       </div>
-
       <h3 class="card-title">${act.title}</h3>
-
       <div class="card-footer">
-        <span class="due-date ${urgentClass}">
-          <i class="fa-regular fa-clock"></i> Vence: ${formatDate(act.dueDate)}
-        </span>
-        <span class="badge-status ${act.status}">
-          <i class="fa-solid ${statusIcon}"></i> ${statusLabel}
-        </span>
+        <span class="due-date ${urgent}"><i class="fa-regular fa-clock"></i> Vence: ${formatDate(act.dueDate)}</span>
+        <span class="badge-status ${act.status}"><i class="fa-solid ${act.status === 'entregada' ? 'fa-circle-check' : act.status === 'retraso' ? 'fa-circle-exclamation' : 'fa-circle'}"></i> ${act.status}</span>
       </div>
-
       <div class="card-actions">
-        <button class="btn-card-action ${hasNotesClass}" onclick="openActivityModal(${act.id})">
-          <i class="fa-solid fa-pen-to-square"></i> ${act.notes ? 'Ver / Editar Anotación' : 'Añadir Anotación (H13)'}
-        </button>
+        <button class="btn-card-action ${act.notes ? 'has-notes' : ''}" onclick="openActivityModal(${act.id})"><i class="fa-solid fa-eye"></i> ${currentRole === 'instructor' ? 'Revisar / Calificar' : 'Ver Detalle'}</button>
+        ${currentRole === 'aprendiz' && (act.status !== 'entregada' || (act.grade === 'no_aprobado' && act.allowResubmit)) ? `<button class="btn-card-action btn-quick-deliver" onclick="openActivityModal(${act.id})"><i class="fa-solid fa-upload"></i> ${act.grade === 'no_aprobado' ? 'Resubir' : 'Entregar'}</button>` : ''}
       </div>
     </article>
   `;
 }
 
-// Aplicar Búsqueda, Filtros y Ordenamiento
-function getFilteredActivities() {
-  const searchTerm = searchInput.value.toLowerCase().trim();
-  const selectedCompetence = filterCompetence.value;
-  const selectedStatus = filterStatus.value;
-  const selectedComplexity = filterComplexity.value;
-  const selectedSort = sortBy.value;
-
-  let result = activities.filter(act => {
-    // Búsqueda (H20)
-    const matchesSearch = act.title.toLowerCase().includes(searchTerm) ||
-                          act.competence.toLowerCase().includes(searchTerm) ||
-                          act.description.toLowerCase().includes(searchTerm);
-
-    // Filtros (H11, H21, H12)
-    const matchesCompetence = selectedCompetence === 'all' || act.competence === selectedCompetence;
-    const matchesStatus = selectedStatus === 'all' || act.status === selectedStatus;
-    const matchesComplexity = selectedComplexity === 'all' || act.complexity === selectedComplexity;
-
-    return matchesSearch && matchesCompetence && matchesStatus && matchesComplexity;
-  });
-
-  // Ordenamiento (H10)
-  result.sort((a, b) => {
-    if (selectedSort === 'dueDateAsc') {
-      return new Date(a.dueDate) - new Date(b.dueDate);
-    } else if (selectedSort === 'dueDateDesc') {
-      return new Date(b.dueDate) - new Date(a.dueDate);
-    } else if (selectedSort === 'complexityDesc') {
-      const order = { 'Alta': 3, 'Media': 2, 'Fácil': 1 };
-      return order[b.complexity] - order[a.complexity];
-    } else if (selectedSort === 'complexityAsc') {
-      const order = { 'Alta': 3, 'Media': 2, 'Fácil': 1 };
-      return order[a.complexity] - order[b.complexity];
-    }
-    return 0;
-  });
-
-  return result;
-}
-
-// Renderizar la Interfaz
 function render() {
-  const filtered = getFilteredActivities();
-  const pinnedList = filtered.filter(a => a.pinned);
-  const unpinnedList = filtered.filter(a => !a.pinned);
+  const q = $('searchInput').value.toLowerCase().trim(), ficha = $('filterFicha')?.value || 'all', comp = $('filterCompetence').value, stat = $('filterStatus').value, compx = $('filterComplexity').value, sort = $('sortBy').value;
 
-  // Renderizar Fijadas (H15)
-  if (pinnedList.length > 0) {
-    pinnedSection.classList.remove('hidden');
-    pinnedContainer.innerHTML = pinnedList.map(createActivityCard).join('');
-  } else {
-    pinnedSection.classList.add('hidden');
-    pinnedContainer.innerHTML = '';
-  }
+  let list = activities.filter(a => (ficha === 'all' || a.ficha === ficha) && (a.title.toLowerCase().includes(q) || a.competence.toLowerCase().includes(q) || a.description.toLowerCase().includes(q)) && (comp === 'all' || a.competence === comp) && (stat === 'all' || a.status === stat) && (compx === 'all' || a.complexity === compx));
 
-  // Renderizar Restantes
-  activitiesContainer.innerHTML = unpinnedList.map(createActivityCard).join('');
-
-  // Manejar pantalla vacía
-  if (filtered.length === 0) {
-    emptyState.classList.remove('hidden');
-  } else {
-    emptyState.classList.add('hidden');
-  }
-
-  // Actualizar indicadores
-  updateStats();
-}
-
-// Contadores de la parte superior
-function updateStats() {
-  countPending.textContent = activities.filter(a => a.status === 'pendiente').length;
-  countCompleted.textContent = activities.filter(a => a.status === 'entregada').length;
-  countLate.textContent = activities.filter(a => a.status === 'retraso').length;
-}
-
-// Fijar / Desfijar Tareas (H15)
-window.togglePin = function(id, event) {
-  event.stopPropagation();
-  activities = activities.map(act => {
-    if (act.id === id) return { ...act, pinned: !act.pinned };
-    return act;
+  list.sort((a, b) => {
+    if (sort === 'dueDateAsc') return new Date(a.dueDate) - new Date(b.dueDate);
+    if (sort === 'dueDateDesc') return new Date(b.dueDate) - new Date(a.dueDate);
+    const w = { 'Alta': 3, 'Media': 2, 'Fácil': 1 };
+    return sort === 'complexityDesc' ? w[b.complexity] - w[a.complexity] : w[a.complexity] - w[b.complexity];
   });
-  saveState();
-  render();
-};
 
-// Abrir Modal de Anotaciones Personales (H13)
-window.openActivityModal = function(id) {
+  const pinned = list.filter(a => a.pinned), unpinned = list.filter(a => !a.pinned);
+  $('pinnedSection').classList.toggle('hidden', pinned.length === 0);
+  $('pinnedContainer').innerHTML = pinned.map(createCard).join('');
+  $('activitiesContainer').innerHTML = unpinned.map(createCard).join('');
+  $('emptyState').classList.toggle('hidden', list.length > 0);
+
+  $('countPending').textContent = activities.filter(a => a.status === 'pendiente').length;
+  $('countCompleted').textContent = activities.filter(a => a.status === 'entregada').length;
+  $('countLate').textContent = activities.filter(a => a.status === 'retraso').length;
+}
+
+window.openActivityModal = (id) => {
   const act = activities.find(a => a.id === id);
   if (!act) return;
 
   activeModalActivityId = id;
-  modalTitle.textContent = act.title;
-  modalCompetence.textContent = act.competence;
-  modalDueDate.textContent = formatDate(act.dueDate);
-  modalComplexity.textContent = `Dificultad ${act.complexity}`;
-  modalComplexity.className = `badge-complexity ${act.complexity}`;
-  modalDescription.textContent = act.description;
-  personalNotes.value = act.notes || '';
-  notesStatusMsg.textContent = '';
+  $('modalTitle').textContent = act.title;
+  $('modalCompetence').textContent = act.competence;
+  if ($('modalFichaBadge')) $('modalFichaBadge').textContent = `Ficha: ${act.ficha || '3409609'}`;
+  $('modalDueDate').textContent = formatDate(act.dueDate);
+  $('modalComplexitySelect').value = act.complexity;
+  $('modalDescription').textContent = act.description;
+  $('modalSupportMaterial').textContent = act.supportMaterial || 'Guia_ADSO.pdf';
+  $('personalNotes').value = act.notes || '';
+  $('notesStatusMsg').textContent = '';
+  $('modalStatusBadge').textContent = act.status;
+  $('modalStatusBadge').className = `badge-status ${act.status}`;
 
-  modalOverlay.classList.remove('hidden');
+  const infoBox = $('submissionStatusInfo'), formBox = $('submissionForm');
+  if (act.status === 'entregada' || act.submissionFile) {
+    infoBox.innerHTML = `<p style="color:#15803d; font-weight:700; font-size:0.8rem;"><i class="fa-solid fa-circle-check"></i> Enviada el ${act.submissionDate || 'recientemente'}.</p><p style="font-size:0.75rem; color:#475569;">Archivo: <strong>${act.submissionFile || 'Evidencia.zip'}</strong></p>`;
+    if (act.grade === 'no_aprobado' && !act.allowResubmit) {
+      formBox.innerHTML = `<p style="font-size:0.75rem; color:#b91c1c; font-weight:700;"><i class="fa-solid fa-lock"></i> No Aprobado. Reenvío deshabilitado.</p>`;
+    } else if (act.grade === 'aprobado') {
+      formBox.innerHTML = `<p style="font-size:0.75rem; color:#15803d; font-weight:700;"><i class="fa-solid fa-check-double"></i> ¡APROBADA por el instructor!</p>`;
+    } else {
+      formBox.innerHTML = `<label for="submissionFileInput">Reemplazar evidencia:</label><input type="file" id="submissionFileInput" class="file-input"><button class="btn-submit-work" id="btnSubmitWork">Resubir Evidencia Corregida</button>`;
+      $('btnSubmitWork').onclick = handleSubmission;
+    }
+  } else {
+    infoBox.innerHTML = `<p style="color:#ef4444; font-weight:700; font-size:0.8rem;"><i class="fa-solid fa-clock"></i> Pendiente de entrega.</p>`;
+    formBox.innerHTML = `<label for="submissionFileInput">Adjuntar evidencia (ZIP, PDF, DOCX):</label><input type="file" id="submissionFileInput" class="file-input"><button class="btn-submit-work" id="btnSubmitWork">Entregar Actividad</button>`;
+    $('btnSubmitWork').onclick = handleSubmission;
+  }
+
+  if (currentRole === 'instructor') {
+    $('observationView').classList.add('hidden');
+    $('observationEditForm').classList.remove('hidden');
+    $('instructorObsInput').value = act.instructorObservation || '';
+    $('allowResubmitCheckbox').checked = act.allowResubmit !== false;
+    setGradeOption(act.grade || 'sin_calificar');
+  } else {
+    $('observationEditForm').classList.add('hidden');
+    $('observationView').classList.remove('hidden');
+    const pill = $('gradeResultPill');
+    pill.innerHTML = act.grade === 'aprobado' ? `<i class="fa-solid fa-circle-check"></i> Calificación: <strong>APROBADO (A)</strong>` : act.grade === 'no_aprobado' ? `<i class="fa-solid fa-circle-xmark"></i> Calificación: <strong>NO APROBADO (D)</strong>` : `<i class="fa-solid fa-hourglass-half"></i> Calificación: <strong>Sin Calificar</strong>`;
+    pill.className = `grade-result-pill ${act.grade || 'sin-calificar'}`;
+    $('observationText').textContent = act.instructorObservation || 'Sin observaciones del instructor aún.';
+    $('resubmitStatusPill').textContent = act.allowResubmit !== false ? '✓ Reenvío Activo' : '✕ Sin Reenvío';
+    $('resubmitStatusPill').className = `resubmit-status-pill ${act.allowResubmit !== false ? 'allowed' : 'blocked'}`;
+  }
+  $('modalOverlay').classList.remove('hidden');
 };
 
-// Cerrar Modal
-function closeModal() {
-  modalOverlay.classList.add('hidden');
-  activeModalActivityId = null;
+function setGradeOption(val) {
+  selectedInstructorGrade = val;
+  $('btnGradeApproved').classList.toggle('selected', val === 'aprobado');
+  $('btnGradeRejected').classList.toggle('selected', val === 'no_aprobado');
+  if (val === 'aprobado') $('allowResubmitCheckbox').checked = false;
+  if (val === 'no_aprobado') $('allowResubmitCheckbox').checked = true;
 }
 
-// Guardar Anotaciones Personales (H13)
-btnSaveNotes.addEventListener('click', () => {
+$('btnGradeApproved').onclick = () => setGradeOption('aprobado');
+$('btnGradeRejected').onclick = () => setGradeOption('no_aprobado');
+
+function handleSubmission() {
   if (!activeModalActivityId) return;
+  const fileInput = $('submissionFileInput');
+  const fileName = (fileInput && fileInput.files.length > 0) ? fileInput.files[0].name : `Evidencia_${currentUser.name.replace(/\s+/g, '_')}.zip`;
+  activities = activities.map(a => a.id === activeModalActivityId ? { ...a, status: 'entregada', grade: 'sin_calificar', submissionFile: fileName, submissionDate: new Date().toLocaleDateString('es-ES') } : a);
+  saveState(); render(); openActivityModal(activeModalActivityId); alert("¡Evidencia entregada!");
+}
 
-  const noteText = personalNotes.value.trim();
-  activities = activities.map(act => {
-    if (act.id === activeModalActivityId) return { ...act, notes: noteText };
-    return act;
-  });
+$('btnSaveInstructorObs').onclick = () => {
+  if (!activeModalActivityId) return;
+  activities = activities.map(a => a.id === activeModalActivityId ? { ...a, grade: selectedInstructorGrade, instructorObservation: $('instructorObsInput').value.trim(), allowResubmit: $('allowResubmitCheckbox').checked } : a);
+  saveState(); render(); alert("¡Calificación y observaciones guardadas!"); closeModal();
+};
 
-  saveState();
-  render();
+$('btnSaveNotes').onclick = () => {
+  if (!activeModalActivityId) return;
+  activities = activities.map(a => a.id === activeModalActivityId ? { ...a, notes: $('personalNotes').value.trim() } : a);
+  saveState(); render(); $('notesStatusMsg').textContent = '✓ Guardado'; setTimeout(() => { $('notesStatusMsg').textContent = ''; }, 1200);
+};
 
-  notesStatusMsg.textContent = '✓ ¡Anotación guardada correctamente!';
-  setTimeout(closeModal, 900);
-});
+$('modalComplexitySelect').onchange = () => { if (activeModalActivityId) changeComplexity(activeModalActivityId, $('modalComplexitySelect').value); };
+$('btnDownloadMaterial').onclick = () => alert(`Descargando: ${$('modalSupportMaterial').textContent}`);
 
-// Eventos de Búsqueda y Filtros
-searchInput.addEventListener('input', () => {
-  btnClearSearch.hidden = searchInput.value.length === 0;
-  render();
-});
+const closeModal = () => { $('modalOverlay').classList.add('hidden'); activeModalActivityId = null; };
+const closeCreateModal = () => $('modalCreateOverlay').classList.add('hidden');
 
-btnClearSearch.addEventListener('click', () => {
-  searchInput.value = '';
-  btnClearSearch.hidden = true;
-  render();
-});
+$('btnCloseModal').onclick = closeModal;
+$('btnCloseCreateModal').onclick = closeCreateModal;
+$('btnOpenCreateModal').onclick = $('btnTopCreateActivity').onclick = () => { $('modalCreateOverlay').classList.remove('hidden'); toggleSidebar(false); };
 
-filterCompetence.addEventListener('change', render);
-filterStatus.addEventListener('change', render);
-filterComplexity.addEventListener('change', render);
-sortBy.addEventListener('change', render);
+$('createActivityForm').onsubmit = (e) => {
+  e.preventDefault();
+  const newAct = {
+    id: Date.now(), ficha: $('newFicha').value, title: $('newTitle').value.trim(), competence: $('newCompetence').value, dueDate: $('newDueDate').value, complexity: $('newComplexity').value, status: 'pendiente', grade: 'sin_calificar', pinned: false, description: $('newDescription').value.trim(), notes: '', supportMaterial: $('newSupportMaterial').value.trim() || 'Guia.pdf', instructorObservation: '', allowResubmit: true
+  };
+  activities.unshift(newAct); saveState(); render(); $('createActivityForm').reset(); closeCreateModal(); alert(`¡Actividad publicada en la Ficha ${newAct.ficha}!`);
+};
 
-btnResetFilters.addEventListener('click', () => {
-  searchInput.value = '';
-  btnClearSearch.hidden = true;
-  filterCompetence.value = 'all';
-  filterStatus.value = 'all';
-  filterComplexity.value = 'all';
-  sortBy.value = 'dueDateAsc';
-  render();
-});
+const toggleSidebar = (open) => { $('sidebarDrawer').classList.toggle('open', open); $('sidebarBackdrop').classList.toggle('hidden', !open); };
+$('btnOpenSidebar').onclick = $('btnAvatar').onclick = () => toggleSidebar(true);
+$('btnCloseSidebar').onclick = $('sidebarBackdrop').onclick = () => toggleSidebar(false);
 
-// Botón de Regreso (Navegación al Tablero)
-btnBack.addEventListener('click', () => {
-  alert("Navegando de regreso al Menú Principal / Tablero...");
-});
+const logout = () => { if (confirm("¿Cerrar sesión?")) { localStorage.removeItem('aulaConecta_user'); window.location.href = 'inicio.html'; } };
+$('btnHeaderLogout').onclick = $('btnSidebarLogout').onclick = logout;
 
-btnCloseModal.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', (e) => {
-  if (e.target === modalOverlay) closeModal();
-});
+$('searchInput').oninput = () => { $('btnClearSearch').hidden = $('searchInput').value.length === 0; render(); };
+$('btnClearSearch').onclick = () => { $('searchInput').value = ''; $('btnClearSearch').hidden = true; render(); };
 
-// Inicializar la aplicación
-document.addEventListener('DOMContentLoaded', render);
+if ($('filterFicha')) $('filterFicha').onchange = render;
+$('filterCompetence').onchange = $('filterStatus').onchange = $('filterComplexity').onchange = $('sortBy').onchange = render;
+
+$('btnResetFilters').onclick = () => {
+  $('searchInput').value = ''; $('btnClearSearch').hidden = true;
+  if ($('filterFicha')) $('filterFicha').value = 'all';
+  $('filterCompetence').value = $('filterStatus').value = $('filterComplexity').value = 'all';
+  $('sortBy').value = 'dueDateAsc'; render();
+};
+
+document.addEventListener('DOMContentLoaded', initSession);

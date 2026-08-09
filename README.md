@@ -14,9 +14,9 @@ Equipo de Trabajo (ADSO 3409609) *Omar Andrés Mayorga Cruz-usuario:ElOmar2702
 
 *Tania Fernanda Trujillo Neira-usuario:tanisfernanda
 
-*Cristian Fabian Tunaroza Rodriguez-TunaTuna2552
+*Cristian Fabian Tunaroza Rodriguez-usuario:TunaTuna2552
 
-*Angel David Gomez Quiroga-Angel307-703
+*Angel David Gomez Quiroga-usuario:Angel307-703
 
 Ruta Tecnológica Prevista Estructura y Diseño UI: HTML & CSS Interactividad y Lógica: JavaScript Librería Frontend:React Control de Versiones: GitHub
 

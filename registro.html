@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesion</title>
+    <title>Registro</title>
 
-    <link rel="stylesheet" href="styleinicio.css">
+    <link rel="stylesheet" href="registro.css">
 </head>
 <body>
     <div class="cuadro">
@@ -21,17 +21,23 @@
             <div class="campo">
                 <input type="email" id="correo" name="correo" placeholder="aprendiz@sena.edu.co" required>
             </div>
-            <label class="textoformulario" for="contrasena"> Contraseña </label>
-
+            <label class="textoformulario" for="contrasena"> Crear Contraseña </label>
             <div class="campo">
                 <input type="password" id="contrasena" name="contrasena" placeholder="••••••••••••" required>
+            </div>
+                        <label class="textoformulario" for="confirmar-contrasena"> Confirmar Contraseña </label>
+            <div class="campo">
+                <input type="password" id="confirmar-contrasena" name="confirmar-contrasena" placeholder="••••••••••••" required>
+            </div>
+                        <label class="textoformulario" for="numero-telefonico"> Numero Telefonico </label>
+            <div class="campo">
+                <input type="number" id="numero-telefonico" name="numero-telefonico" placeholder="••••••••••••" required>
             </div>
             <div class="mantener">
                 <input  type="checkbox" id="mantener">
                 <label for="mantener"> Mantener sesión iniciada</label></div>
-            <a href="#" class="olvidaste">¿Olvidaste tu contraseña?</a>
-            <a href="registro.html" class="registro">¿No tienes cuenta? Regístrate</a>
-            <input type="submit" value="Iniciar Sesión" class="iniciarsesion">
+            <a href="inicio.html" class="registro">¿Ya tienes cuenta? Inicia sesión</a>
+            <input type="submit" value="Registrarse" class="iniciarsesion">
         </form>
     </div>
 </body>

@@ -136,3 +136,53 @@ form {
     padding-left: 10px;
     margin-bottom: 15px;
 }
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+    .cuadro {
+        width: 100%;
+        min-height: auto;
+        max-width: 360px;
+        padding: 18px;
+        border-radius: 12px;
+    }
+    .google {
+        height: 42px;
+        font-size: 14px;
+    }
+    .iconogugul {
+        width: 20px;
+        height: 20px;
+        left: 12px;
+    }
+    .sena {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .simbolosena {
+        width: 120px;
+        height: 110px;
+    }
+    .textoformulario {
+        font-size: 13px;
+    }
+    .campo, .numero-telefonico, .confirmar-contrasena {
+        height: 40px;
+        margin-bottom: 13px;
+    }
+    .campo input, .numero-telefonico input, .confirmar-contrasena input {
+        font-size: 13px;
+    }
+    .mantener {
+        font-size: 13px;
+    }
+    .registro {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+    .iniciarsesion {
+        height: 42px;
+        font-size: 14px;
+    }
+}

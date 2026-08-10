@@ -1,14 +1,14 @@
-// Acción al hacer clic en el menú
-document.getElementById('botonMenu').addEventListener('click', function() {
-    alert('Menú abierto');
-});
+document.addEventListener('DOMContentLoaded', () => {
 
-// Acción al hacer clic en "VER HORARIO COMPLETO"
-document.getElementById('botonHorario').addEventListener('click', function() {
-    alert('Cargando el horario completo del estudiante...');
-});
+  
+  const botonMenu = document.getElementById('botonMenu');
+  const menuNavegacion = document.getElementById('menuNavegacion');
 
-// Acción básica para los botones cuadrantes de abajo
-function abrirSeccion(nombreSeccion) {
-    alert('Navegando a la sección: ' + nombreSeccion);
+  if (botonMenu && menuNavegacion) {
+    botonMenu.addEventListener('click', (evento) => {
+      evento.stopPropagation();
+      menuNavegacion.classList.toggle('oculto');
+    });
+
 }
+});

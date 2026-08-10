@@ -1,170 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AulaConecta - Lista de Actividades</title>
-  <!-- Iconos Font Awesome -->
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AulaConecta - Actividades</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Fuente Google: Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="listaActividades.css">
 </head>
 <body>
-
-  <!-- Contenedor Principal (Simulación Móvil / App UI) -->
   <div class="app-container">
-    
-    <!-- Encabezado / Navbar -->
     <header class="app-header">
       <div class="header-top">
-        <!-- Botón de Regreso (Corrección de navegación) -->
-        <button class="btn-icon btn-back" id="btnBack" title="Volver al Menú Principal">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <div class="header-title">
-          <h1>Lista de Actividades</h1>
-          <span class="subtitle">Ficha ADSO 3409609</span>
-        </div>
-        <button class="btn-icon btn-avatar" title="Perfil de Aprendiz">
-          <i class="fa-solid fa-user-graduate"></i>
-        </button>
+        <button class="btn-icon btn-menu" id="btnOpenSidebar"><i class="fa-solid fa-bars"></i></button>
+        <div class="header-title"><h1>AulaConecta</h1><span class="subtitle" id="headerFichaSubtitle">Actividades • ADSO</span></div>
+        <button class="btn-icon btn-avatar" id="btnAvatar"><i class="fa-solid fa-user-graduate" id="userAvatarIcon"></i></button>
       </div>
-
-      <!-- Barra de Búsqueda por palabra clave o competencia (H20) -->
+      <div class="role-bar">
+        <span class="role-badge" id="headerRoleBadge"><i class="fa-solid fa-user-check"></i> Cargando...</span>
+        <button class="btn-logout-header" id="btnHeaderLogout"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+      </div>
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" placeholder="Buscar por palabra clave o competencia...">
-        <button class="btn-clear-search" id="btnClearSearch" hidden>
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <input type="text" id="searchInput" placeholder="Buscar actividad...">
+        <button class="btn-clear-search" id="btnClearSearch" hidden><i class="fa-solid fa-xmark"></i></button>
       </div>
     </header>
 
-    <!-- Sección de Filtros y Ordenamiento (H11, H21, H12, H10) -->
+    <div class="sidebar-backdrop hidden" id="sidebarBackdrop"></div>
+    <aside class="sidebar-drawer" id="sidebarDrawer">
+      <div class="sidebar-header"><h2>Menú AulaConecta</h2><button class="btn-close-sidebar" id="btnCloseSidebar"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="profile-card">
+        <div class="profile-avatar"><i class="fa-solid fa-user-tie"></i></div>
+        <div class="profile-info">
+          <h3 id="userNameDisplay">Usuario</h3>
+          <p id="userRoleSubtitle">Perfil</p>
+          <p id="userEmailDisplay" class="user-email-tag">correo@sena.edu.co</p>
+          <span class="profile-ficha" id="sidebarFichaTag"><i class="fa-solid fa-id-card"></i> Ficha: 3409609</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="inicio.html" class="nav-item"><i class="fa-solid fa-house"></i> 1. Login</a>
+        <a href="listaActividades.html" class="nav-item active"><i class="fa-solid fa-list-check"></i> 2. Actividades</a>
+        <a href="#" class="nav-item" id="navProgreso"><i class="fa-solid fa-chart-line"></i> 3. Progreso/RAPs</a>
+        <a href="comunicados.html" class="nav-item"><i class="fa-solid fa-bullhorn"></i> 4. Comunicados</a>
+      </nav>
+      <div class="instructor-quick-actions hidden" id="instructorSidebarPanel">
+        <button class="btn-sidebar-action" id="btnOpenCreateModal"><i class="fa-solid fa-plus-circle"></i> + Nueva Actividad</button>
+      </div>
+      <div class="sidebar-footer">
+        <span class="version-tag">v2.5 ADSO</span>
+        <button class="btn-sidebar-logout" id="btnSidebarLogout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
+      </div>
+    </aside>
+
     <section class="filters-section">
       <div class="filters-scroll">
-        <!-- Filtro por Competencia (H11) -->
-        <div class="filter-group">
-          <label for="filterCompetence"><i class="fa-solid fa-book-bookmark"></i> Competencia:</label>
-          <select id="filterCompetence">
-            <option value="all">Todas las competencias</option>
-            <option value="Programación">Técnico en Programación</option>
-            <option value="Requisitos">Análisis de Requisitos</option>
-            <option value="Bases de Datos">Bases de Datos</option>
-            <option value="Inglés">Inglés Técnico</option>
-          </select>
-        </div>
-
-        <!-- Filtro por Estado de Entrega (H21) -->
-        <div class="filter-group">
-          <label for="filterStatus"><i class="fa-solid fa-list-check"></i> Estado:</label>
-          <select id="filterStatus">
-            <option value="all">Todos los estados</option>
-            <option value="pendiente">Pendiente / Por Entregar</option>
-            <option value="entregada">Entregada</option>
-            <option value="retraso">En Retraso</option>
-          </select>
-        </div>
-
-        <!-- Filtro por Nivel de Complejidad (H12) -->
-        <div class="filter-group">
-          <label for="filterComplexity"><i class="fa-solid fa-layer-group"></i> Dificultad:</label>
-          <select id="filterComplexity">
-            <option value="all">Todas</option>
-            <option value="Alta">Alta</option>
-            <option value="Media">Media</option>
-            <option value="Fácil">Fácil</option>
-          </select>
-        </div>
-
-        <!-- Ordenamiento por Fecha o Complejidad (H10) -->
-        <div class="filter-group">
-          <label for="sortBy"><i class="fa-solid fa-arrow-down-short-wide"></i> Ordenar por:</label>
-          <select id="sortBy">
-            <option value="dueDateAsc">Fecha límite (Más próxima)</option>
-            <option value="dueDateDesc">Fecha límite (Más lejana)</option>
-            <option value="complexityDesc">Mayor dificultad primero</option>
-            <option value="complexityAsc">Menor dificultad primero</option>
-          </select>
-        </div>
+        <div class="filter-group"><label for="filterFicha">Ficha:</label><select id="filterFicha"><option value="all">Todas</option><option value="3409609" selected>3409609</option><option value="3409610">3409610</option><option value="3409611">3409611</option></select></div>
+        <div class="filter-group"><label for="filterCompetence">Competencia:</label><select id="filterCompetence"><option value="all">Todas</option><option value="Análisis y Requisitos de Software">Requisitos</option><option value="Diseño y Construcción de Software">Construcción</option><option value="Bases de Datos y Almacenamiento">Bases Datos</option><option value="Pruebas y Calidad de Software">Pruebas</option><option value="Inglés Técnico y Comunicativo">Inglés</option><option value="Seguridad y Salud en el Trabajo">SST</option></select></div>
+        <div class="filter-group"><label for="filterStatus">Estado:</label><select id="filterStatus"><option value="all">Todos</option><option value="pendiente">Pendiente</option><option value="entregada">Entregada</option><option value="retraso">Retraso</option></select></div>
+        <div class="filter-group"><label for="filterComplexity">Dificultad:</label><select id="filterComplexity"><option value="all">Todas</option><option value="Alta">Alta</option><option value="Media">Media</option><option value="Fácil">Fácil</option></select></div>
+        <div class="filter-group"><label for="sortBy">Ordenar:</label><select id="sortBy"><option value="dueDateAsc">Fecha (Próxima)</option><option value="dueDateDesc">Fecha (Lejana)</option><option value="complexityDesc">Dificultad ↓</option><option value="complexityAsc">Dificultad ↑</option></select></div>
       </div>
     </section>
 
-    <!-- Resumen de Estadísticas Rápidas -->
     <div class="stats-bar">
-      <span class="stat-pill"><i class="fa-solid fa-clock"></i> Pendientes: <strong id="countPending">0</strong></span>
-      <span class="stat-pill success"><i class="fa-solid fa-circle-check"></i> Entregadas: <strong id="countCompleted">0</strong></span>
-      <span class="stat-pill warning"><i class="fa-solid fa-triangle-exclamation"></i> En Retraso: <strong id="countLate">0</strong></span>
+      <span class="stat-pill">Pendientes: <strong id="countPending">0</strong></span>
+      <span class="stat-pill success">Entregadas: <strong id="countCompleted">0</strong></span>
+      <span class="stat-pill warning">Retraso: <strong id="countLate">0</strong></span>
+      <button class="btn-add-activity-top hidden" id="btnTopCreateActivity"><i class="fa-solid fa-plus"></i> + Crear</button>
     </div>
 
-    <!-- Lista de Actividades (H10, H15) -->
     <main class="activities-main">
-      
-      <!-- Sección: Actividades Fijadas (H15) -->
-      <section class="activity-group" id="pinnedSection">
-        <h2 class="group-title"><i class="fa-solid fa-thumbtack text-pinned"></i> Fijadas en la parte superior</h2>
-        <div class="activities-list" id="pinnedContainer">
-          <!-- Renderizado dinámico desde JS -->
-        </div>
-      </section>
-
-      <!-- Sección: Todas las Actividades -->
-      <section class="activity-group">
-        <h2 class="group-title"><i class="fa-solid fa-list-ul"></i> Todas las Actividades</h2>
-        <div class="activities-list" id="activitiesContainer">
-          <!-- Renderizado dinámico desde JS -->
-        </div>
-      </section>
-
-      <!-- Mensaje para cuando no hay resultados -->
-      <div class="empty-state hidden" id="emptyState">
-        <i class="fa-solid fa-folder-open empty-icon"></i>
-        <h3>No se encontraron actividades</h3>
-        <p>Intenta cambiar los términos de búsqueda o restablecer los filtros.</p>
-        <button class="btn-reset-filters" id="btnResetFilters">Restablecer filtros</button>
-      </div>
+      <section class="activity-group" id="pinnedSection"><h2 class="group-title"><i class="fa-solid fa-thumbtack text-pinned"></i> Fijadas Arriba</h2><div class="activities-list" id="pinnedContainer"></div></section>
+      <section class="activity-group"><h2 class="group-title"><i class="fa-solid fa-list-ul"></i> Todas las Actividades</h2><div class="activities-list" id="activitiesContainer"></div></section>
+      <div class="empty-state hidden" id="emptyState"><i class="fa-solid fa-folder-open empty-icon"></i><h3>Sin resultados</h3><button class="btn-reset-filters" id="btnResetFilters">Restablecer</button></div>
     </main>
 
-    <!-- Modal para Anotaciones Personales del Aprendiz (H13) -->
+    <!-- MODAL DETALLE / ENTREGA / EVALUACIÓN -->
     <div class="modal-overlay hidden" id="modalOverlay">
       <div class="modal-card">
-        <button class="btn-modal-close" id="btnCloseModal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <button class="btn-modal-close" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-header">
-          <span class="badge-competence" id="modalCompetence">Competencia</span>
-          <h2 id="modalTitle">Título de la Actividad</h2>
+          <div class="modal-header-top"><span class="badge-competence" id="modalCompetence">Comp</span><span class="badge-status" id="modalStatusBadge">Est</span><span class="badge-ficha" id="modalFichaBadge">Ficha</span></div>
+          <h2 id="modalTitle">Título</h2>
           <div class="modal-meta">
-            <span class="meta-item"><i class="fa-regular fa-calendar"></i> Vence: <strong id="modalDueDate">--/--/----</strong></span>
-            <span class="badge-complexity" id="modalComplexity">Dificultad</span>
+            <span>Vence: <strong id="modalDueDate">--/--/----</strong></span>
+            <div class="complexity-selector"><label for="modalComplexitySelect">Dificultad:</label><select id="modalComplexitySelect"><option value="Fácil">Fácil</option><option value="Media">Media</option><option value="Alta">Alta</option></select></div>
           </div>
         </div>
-
         <div class="modal-body">
-          <p class="activity-desc" id="modalDescription">Descripción detallada de la guía o trabajo...</p>
-          
-          <!-- Anotaciones Personales (H13) -->
+          <p class="activity-desc" id="modalDescription"></p>
+          <div class="support-material-box"><h4>Material:</h4><div class="material-file-item"><i class="fa-solid fa-file-pdf pdf-icon"></i><span id="modalSupportMaterial">Guia.pdf</span><button class="btn-download-material" id="btnDownloadMaterial">Descargar</button></div></div>
           <div class="notes-box">
-            <label for="personalNotes">
-              <i class="fa-solid fa-pen-to-square"></i> Mis Anotaciones Personales:
-            </label>
-            <textarea id="personalNotes" rows="4" placeholder="Escribe aquí recordatorios, observaciones o apuntes clave para esta tarea..."></textarea>
-            <div class="notes-footer">
-              <span class="notes-status" id="notesStatusMsg"></span>
-              <button class="btn-save-notes" id="btnSaveNotes">
-                <i class="fa-solid fa-floppy-disk"></i> Guardar Anotación
-              </button>
+            <label for="personalNotes">Mis Anotaciones:</label>
+            <textarea id="personalNotes" rows="2" placeholder="Notas personales..."></textarea>
+            <div class="notes-footer"><span class="notes-status" id="notesStatusMsg"></span><button class="btn-save-notes" id="btnSaveNotes">Guardar Nota</button></div>
+          </div>
+          <div class="submission-box" id="submissionBox">
+            <h4>Entrega de Evidencia:</h4>
+            <div id="submissionStatusInfo"></div>
+            <div class="submission-form" id="submissionForm"><input type="file" id="submissionFileInput" class="file-input"><button class="btn-submit-work" id="btnSubmitWork">Entregar Actividad</button></div>
+          </div>
+          <div class="instructor-feedback-box">
+            <h4>Calificación u Observación:</h4>
+            <div class="observation-view" id="observationView">
+              <div class="grade-result-pill" id="gradeResultPill"></div>
+              <p id="observationText" class="observation-paragraph"></p>
+              <span class="resubmit-status-pill" id="resubmitStatusPill"></span>
+            </div>
+            <div class="observation-edit-form hidden" id="observationEditForm">
+              <div class="grade-selector-box"><label>Asignar Calificación SENA:*</label><div class="grade-buttons-row"><button type="button" class="btn-grade-opt btn-grade-approved" id="btnGradeApproved">Aprobado (A)</button><button type="button" class="btn-grade-opt btn-grade-rejected" id="btnGradeRejected">No Aprobado (D)</button></div></div>
+              <label for="instructorObsInput">Observaciones:</label><textarea id="instructorObsInput" rows="2" placeholder="Retroalimentación..."></textarea>
+              <div class="resubmit-toggle-row"><label class="toggle-switch-label"><input type="checkbox" id="allowResubmitCheckbox" checked> Oportunidad de resubir / corregir</label></div>
+              <button class="btn-save-observation" id="btnSaveInstructorObs">Guardar Evaluación</button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
+    <!-- MODAL CREAR ACTIVIDAD -->
+    <div class="modal-overlay hidden" id="modalCreateOverlay">
+      <div class="modal-card">
+        <button class="btn-modal-close" id="btnCloseCreateModal"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-header"><h2>+ Nueva Actividad</h2></div>
+        <form class="create-activity-form" id="createActivityForm">
+          <div class="form-row">
+            <div class="form-group"><label for="newFicha">Ficha:*</label><select id="newFicha" required><option value="3409609" selected>3409609</option><option value="3409610">3409610</option><option value="3409611">3409611</option></select></div>
+            <div class="form-group"><label for="newCompetence">Competencia:*</label><select id="newCompetence" required><option value="Análisis y Requisitos de Software">Requisitos</option><option value="Diseño y Construcción de Software" selected>Construcción</option><option value="Bases de Datos y Almacenamiento">Bases Datos</option><option value="Pruebas y Calidad de Software">Pruebas</option><option value="Inglés Técnico y Comunicativo">Inglés</option><option value="Seguridad y Salud en el Trabajo">SST</option></select></div>
+          </div>
+          <div class="form-group"><label for="newTitle">Título:*</label><input type="text" id="newTitle" placeholder="Título de evidencia" required></div>
+          <div class="form-row">
+            <div class="form-group"><label for="newComplexity">Complejidad:*</label><select id="newComplexity" required><option value="Fácil">Fácil</option><option value="Media" selected>Media</option><option value="Alta">Alta</option></select></div>
+            <div class="form-group"><label for="newDueDate">Fecha Límite:*</label><input type="date" id="newDueDate" required></div>
+          </div>
+          <div class="form-group"><label for="newDescription">Descripción:*</label><textarea id="newDescription" rows="2" placeholder="Indicaciones..." required></textarea></div>
+          <div class="form-group"><label for="newSupportMaterial">Material:</label><input type="text" id="newSupportMaterial" placeholder="Guia.pdf"></div>
+          <button type="submit" class="btn-create-submit">Publicar Actividad</button>
+        </form>
+      </div>
+    </div>
 
+  </div>
   <script src="listaActividades.js"></script>
 </body>
 </html>

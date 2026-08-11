@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+
+    <link rel="stylesheet" href="registro.css">
+</head>
+<body>
+    <div class="cuadro">
+        <button class="google">
+            <img  class="iconogugul"  src="https://cdn.simpleicons.org/google"  alt="Google">
+            <span>Continuar con Google</span>
+        </button>
+        <div class="sena">
+            <div class="simbolosena"></div>
+        </div>
+        <form>
+            <label class="textoformulario" for="correo">Correo institucional</label>
+            <div class="campo">
+                <input type="email" id="correo" name="correo" placeholder="aprendiz@sena.edu.co" required>
+            </div>
+            <label class="textoformulario" for="contrasena"> Crear Contraseña </label>
+            <div class="campo">
+                <input type="password" id="contrasena" name="contrasena" placeholder="••••••••••••" required>
+            </div>
+                        <label class="textoformulario" for="confirmar-contrasena"> Confirmar Contraseña </label>
+            <div class="campo">
+                <input type="password" id="confirmar-contrasena" name="confirmar-contrasena" placeholder="••••••••••••" required>
+            </div>
+                        <label class="textoformulario" for="numero-telefonico"> Numero Telefonico </label>
+            <div class="campo">
+                <input type="number" id="numero-telefonico" name="numero-telefonico" placeholder="••••••••••••" required>
+            </div>
+            <div class="mantener">
+                <input  type="checkbox" id="mantener">
+                <label for="mantener"> Mantener sesión iniciada</label></div>
+            <a href="inicio.html" class="registro">¿Ya tienes cuenta? Inicia sesión</a>
+            <input type="submit" value="Registrarse" class="iniciarsesion">
+        </form>
+    </div>
+</body>
+</html>

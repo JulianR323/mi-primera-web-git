@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AulaConecta - Login</title>
+  <link rel="stylesheet" href="styleinicio.css">
+</head>
+<body>
+  <div class="cuadro">
+    <div class="sena"><div class="simbolosena"></div></div>
+    <div id="loginErrorMessage" style="display:none;background:#fee2e2;color:#991b1b;padding:8px;border-radius:8px;font-size:12px;margin-bottom:10px;border:1px solid #f87171;"></div>
+    <form id="loginForm">
+      <label class="textoformulario" for="correo">Correo institucional SENA</label>
+      <div class="campo"><input type="email" id="correo" name="correo" placeholder="Correo SENA" required></div>
+      <label class="textoformulario" for="contrasena">Contraseña</label>
+      <div class="campo"><input type="password" id="contrasena" name="contrasena" placeholder="••••••••••••" required></div>
+      <div class="mantener"><input type="checkbox" id="mantener" checked><label for="mantener">Mantener sesión iniciada</label></div>
+      <a href="#" class="olvidaste">¿Olvidaste tu contraseña?</a>
+      <a href="registro.html" class="registro">¿No tienes cuenta? Regístrate</a>
+      <input type="submit" value="Iniciar Sesión" class="iniciarsesion">
+    </form>
+  </div>
+  <script src="inicio.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Principal</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <main class="pantalla-aplicacion">
+    <header class="encabezado-usuario">
+      <div class="informacion-usuario">
+        <h1 class="nombre-usuario">Jonathan Felipe<br>Cruz Saenz</h1>
+      </div>
+
+      <button type="button" class="boton-menu" id="botonMenu" aria-label="Abrir menú">
+        <span class="texto-menu">Menú</span>
+      </button>
+
+    
+      <nav class="menu-desplegable oculto" id="menuNavegacion">
+        <ul class="lista-menu">
+          <li class="opcion-menu"><a href="perfil.html">Mi Perfil</a></li>
+          <li class="opcion-menu"><a href="configuracion.html">Lista de actividades</a></li>
+          <li class="opcion-menu"><a href="inicio.html">Cerrar Sesión</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    
+    <section class="bloque-horario">
+      <div class="banner-titulo-horario">
+        <h2 class="titulo-seccion-blanco">HORARIO DE CLASES</h2>
+      </div>
+      
+      <div class="contenido-horario">
+        <p class="subtitulo-horario">Trimestre vigente: <span class="resaltado-trimestre">[3]</span></p>
+        <h3 class="subtitulo-clases">Clases de hoy</h3>
+        
+        <div class="fila-detalles-horario">
+          <ul class="lista-vinetas">
+            <li>Clases de : hoy 1</li>
+            <li>Clases de : hoy 2</li>
+            <li>Clases de : hoy 3</li>
+            <li>Clases de : hoy 4</li>
+          </ul>
+        </div>
+
+        <button type="button" class="boton-accion-verde" id="botonHorarioCompleto">
+          VER HORARIO COMPLETO
+        </button>
+      </div>
+    </section>
+
+
+    <section class="bloque-alertas">
+      <div class="encabezado-alertas">
+        <h2 class="titulo-seccion-negro">ALERTAS DE TAREAS</h2>
+        <span class="etiqueta-badge">TAREAS</span>
+      </div>
+      <ul class="lista-vinetas">
+        <li>Tareas de tarea A</li>
+        <li>Tareas de tarea B</li>
+        <li>Tareas de tarea C</li>
+      </ul>
+    </section>
+
+    
+    <section class="bloque-comunicados">
+      <h2 class="titulo-seccion-negro">COMUNICADOS RECIENTES</h2>
+      <ul class="lista-vinetas">
+        <li><a href="" class="enlace-comunicado">Título e reciente RAP 1</a></li>
+        <li><a href="" class="enlace-comunicado">Comunicados RAP 2</a></li>
+        <li>Comunicados Recientes – Titlo...</li>
+      </ul>
+    </section>
+
+    
+  <section class="seccion-accesos">
+  <h2 class="titulo-accesos">Directo acceso</h2>
+  
+  <div class="cuadrícula-mosaicos">
+    <a href="" class="baldosa-acceso baldosa-azul">
+      <span class="texto-baldosa">Competencia A</span>
+    </a>
+
+    <a href="" class="baldosa-acceso baldosa-naranja">
+      <span class="texto-baldosa">Competencia B</span>
+    </a>
+
+    <a href="" class="baldosa-acceso baldosa-roja">
+      <span class="texto-baldosa">RAP 1</span>
+    </a>
+
+    <a href="" class="baldosa-acceso baldosa-azul">
+      <span class="texto-baldosa">RAP 2</span>
+    </a>
+  </div>
+</section>
+
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>
